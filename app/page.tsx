@@ -284,23 +284,23 @@ export default function FitindApp() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="min-h-screen flex flex-col items-center justify-center text-center px-4"
+            className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-8"
           >
             {/* Hero Section */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-8 md:mb-12"
+              className="mb-4 md:mb-8"
             >
               <motion.h1
-                className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold mb-6 bg-gradient-to-r from-emerald-400 via-gold-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
+                className="text-5xl sm:text-6xl md:text-8xl font-serif font-bold mb-3 md:mb-6 bg-gradient-to-r from-emerald-400 via-gold-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
                 style={{ backgroundSize: '200% auto' }}
               >
                 Fitind
               </motion.h1>
               <motion.p
-                className="text-2xl sm:text-3xl md:text-4xl text-white font-light mb-4 px-4"
+                className="text-xl sm:text-2xl md:text-4xl text-white font-light mb-2 md:mb-4 px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
@@ -318,9 +318,9 @@ export default function FitindApp() {
               </motion.p>
             </motion.div>
 
-            {/* 3D Floating Icons */}
+            {/* 3D Floating Icons - Hidden on mobile for space */}
             <motion.div
-              className="flex gap-3 sm:gap-6 md:gap-8 mb-8 md:mb-12"
+              className="hidden sm:flex gap-3 sm:gap-6 md:gap-8 mb-6 md:mb-12"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.9 }}
@@ -357,9 +357,9 @@ export default function FitindApp() {
               ))}
             </motion.div>
 
-            {/* Features Grid */}
+            {/* Features Grid - Compact on mobile */}
             <motion.div
-              className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-4xl px-4"
+              className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-12 max-w-4xl px-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 }}
@@ -393,9 +393,9 @@ export default function FitindApp() {
               ))}
             </motion.div>
 
-            {/* Stats Section */}
+            {/* Stats Section - Hidden on mobile to save space */}
             <motion.div
-              className="flex gap-6 sm:gap-8 md:gap-12 mb-8 md:mb-12 px-4"
+              className="hidden md:flex gap-6 sm:gap-8 md:gap-12 mb-8 md:mb-12 px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3 }}
