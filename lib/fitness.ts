@@ -12,6 +12,7 @@ export interface UserProfile {
     bodyType?: 'ectomorph' | 'mesomorph' | 'endomorph';
     bodyFatPercentage?: number; // For Katch-McArdle formula
     macroDistribution?: 'standard' | 'keto' | 'highcarb' | 'athlete';
+    nonVegDays?: string[]; // For flexitarian diet
 }
 
 export interface MacroNutrients {
@@ -440,8 +441,11 @@ export const flexitarianMeals: Meal[] = [
 ];
 
 // Get religious days note
-export function getReligiousDaysNote(): string {
-    return '📿 Religious Days: Tuesday & Saturday - Pure Veg meals on these days to respect your traditions';
+export function getReligiousDaysNote(religiousDays?: string[]): string {
+    if (!religiousDays || religiousDays.length === 0) {
+        return '📿 Religious Days: Tuesday & Saturday (Default) - Pure Veg meals to respect traditions';
+    }
+    return `📿 Religious Days: ${religiousDays.join(', ')} - Pure Veg meals on these days as per your choice`;
 }
 
 // Get weekly meal plan for flexitarian (shows different meals for religious vs regular days)
@@ -451,17 +455,17 @@ export interface WeeklyMealPlan {
     note: string;
 }
 
-export function getFlexitarianWeeklyPlan(targetCalories: number): WeeklyMealPlan {
-    // For regular days (Sun, Mon, Wed, Thu, Fri) - Non-veg
+export function getFlexitarianWeeklyPlan(targetCalories: number, religiousDays?: string[]): WeeklyMealPlan {
+    // For regular days - (days not in religiousDays list) - Non-veg
     const regularDayMeals = scaleMeals(nonVegetarianMeals, targetCalories);
 
-    // For religious days (Tue, Sat) - Veg only
+    // For religious days - Veg only
     const religiousDayMeals = scaleMeals(vegetarianMeals, targetCalories);
 
     return {
         regularDays: regularDayMeals,
         religiousDays: religiousDayMeals,
-        note: getReligiousDaysNote(),
+        note: getReligiousDaysNote(religiousDays),
     };
 }
 
