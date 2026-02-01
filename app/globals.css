@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4.8% 15%;
+    --muted-foreground: 240 3.8% 56.1%;
+    --accent: 240 4.8% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 20%;
+    --input: 240 5.9% 20%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 1rem;
+    --font-sans: var(--font-inter);
+    --font-serif: var(--font-playfair);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-border {
+    border: 1px solid;
+    border-image: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.05) 100%) 1;
+  }
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: #0a0a0a;
+  color: hsl(var(--foreground));
+  cursor: none;
+  font-family: var(--font-sans);
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease-out;
+}
+
+/* Glow Blob Animations */
+@keyframes float-blob-1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30%, 20%) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20%, 30%) scale(0.9);
+  }
+}
+
+@keyframes float-blob-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(-25%, -15%) scale(0.95);
+  }
+
+  66% {
+    transform: translate(25%, 25%) scale(1.05);
+  }
+}
+
+.animate-blob-1 {
+  animation: float-blob-1 20s ease-in-out infinite;
+}
+
+.animate-blob-2 {
+  animation: float-blob-2 25s ease-in-out infinite;
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+}
