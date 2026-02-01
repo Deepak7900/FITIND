@@ -440,32 +440,32 @@ export const flexitarianMeals: Meal[] = [
     },
 ];
 
-// Get religious days note
-export function getReligiousDaysNote(religiousDays?: string[]): string {
-    if (!religiousDays || religiousDays.length === 0) {
-        return '📿 Religious Days: Tuesday & Saturday (Default) - Pure Veg meals to respect traditions';
+// Get flexitarian plan note
+export function getFlexiPlanNote(nonVegDays?: string[]): string {
+    if (!nonVegDays || nonVegDays.length === 0) {
+        return '🥬 Flexitarian: Abhi aapne koi Non-Veg din select nahi kiya hai, toh sab din Veg dikhadenge.';
     }
-    return `📿 Religious Days: ${religiousDays.join(', ')} - Pure Veg meals on these days as per your choice`;
+    return `🍖 Flexitarian: ${nonVegDays.join(', ')} ko Non-Veg meals, aur baaki din Pure Veg.`;
 }
 
-// Get weekly meal plan for flexitarian (shows different meals for religious vs regular days)
+// Get weekly meal plan for flexitarian
 export interface WeeklyMealPlan {
-    regularDays: Meal[];
-    religiousDays: Meal[];
+    nonVegDays: Meal[];
+    vegDays: Meal[];
     note: string;
 }
 
-export function getFlexitarianWeeklyPlan(targetCalories: number, religiousDays?: string[]): WeeklyMealPlan {
-    // For regular days - (days not in religiousDays list) - Non-veg
-    const regularDayMeals = scaleMeals(nonVegetarianMeals, targetCalories);
+export function getFlexitarianWeeklyPlan(targetCalories: number, nonVegDays?: string[]): WeeklyMealPlan {
+    // Non-veg meals for selected days
+    const nonVegDayMeals = scaleMeals(nonVegetarianMeals, targetCalories);
 
-    // For religious days - Veg only
-    const religiousDayMeals = scaleMeals(vegetarianMeals, targetCalories);
+    // Veg meals for other days
+    const vegDayMeals = scaleMeals(vegetarianMeals, targetCalories);
 
     return {
-        regularDays: regularDayMeals,
-        religiousDays: religiousDayMeals,
-        note: getReligiousDaysNote(religiousDays),
+        nonVegDays: nonVegDayMeals,
+        vegDays: vegDayMeals,
+        note: getFlexiPlanNote(nonVegDays),
     };
 }
 
