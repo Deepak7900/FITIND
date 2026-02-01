@@ -294,13 +294,13 @@ export default function VedaFitApp() {
               className="mb-16"
             >
               <motion.h1
-                className="text-7xl md:text-8xl font-serif font-bold mb-6 bg-gradient-to-r from-emerald-400 via-gold-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
+                className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold mb-6 bg-gradient-to-r from-emerald-400 via-gold-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
                 style={{ backgroundSize: '200% auto' }}
               >
-                VedaFit
+                Fitind
               </motion.h1>
               <motion.p
-                className="text-3xl md:text-4xl text-white font-light mb-4"
+                className="text-2xl sm:text-3xl md:text-4xl text-white font-light mb-4 px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
@@ -309,7 +309,7 @@ export default function VedaFitApp() {
                 <span className="text-emerald-400 font-semibold">AI Coach</span>
               </motion.p>
               <motion.p
-                className="text-xl text-gray-400 max-w-2xl mx-auto"
+                className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
@@ -320,7 +320,7 @@ export default function VedaFitApp() {
 
             {/* 3D Floating Icons */}
             <motion.div
-              className="flex gap-8 mb-16"
+              className="flex gap-3 sm:gap-6 md:gap-8 mb-12 md:mb-16"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.9 }}
@@ -333,7 +333,7 @@ export default function VedaFitApp() {
               ].map((item, idx) => (
                 <motion.div
                   key={idx}
-                  className="text-6xl glass backdrop-blur-xl bg-white/5 border-white/10 rounded-2xl p-6"
+                  className="text-4xl sm:text-5xl md:text-6xl glass backdrop-blur-xl bg-white/5 border-white/10 rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6"
                   whileHover={{ scale: 1.2, rotateY: 180 }}
                   animate={{
                     y: [0, -10, 0],
@@ -359,7 +359,7 @@ export default function VedaFitApp() {
 
             {/* Features Grid */}
             <motion.div
-              className="grid md:grid-cols-3 gap-6 mb-16 max-w-4xl"
+              className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16 max-w-4xl px-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 }}
@@ -383,19 +383,19 @@ export default function VedaFitApp() {
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
-                  className="glass backdrop-blur-xl bg-white/5 border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all"
+                  className="glass backdrop-blur-xl bg-white/5 border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 hover:bg-white/10 transition-all"
                   whileHover={{ scale: 1.05, rotateX: 5 }}
                 >
-                  <div className="text-4xl mb-3">{feature.icon}</div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 text-sm">{feature.desc}</p>
+                  <div className="text-3xl md:text-4xl mb-2 md:mb-3">{feature.icon}</div>
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-1 md:mb-2">{feature.title}</h3>
+                  <p className="text-gray-400 text-xs md:text-sm">{feature.desc}</p>
                 </motion.div>
               ))}
             </motion.div>
 
             {/* Stats Section */}
             <motion.div
-              className="flex gap-12 mb-16"
+              className="flex gap-6 sm:gap-8 md:gap-12 mb-12 md:mb-16 px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3 }}
@@ -406,8 +406,8 @@ export default function VedaFitApp() {
                 { number: '99%', label: 'Satisfaction' },
               ].map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-4xl font-bold text-emerald-400 mb-1">{stat.number}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-400 mb-1">{stat.number}</div>
+                  <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -420,12 +420,12 @@ export default function VedaFitApp() {
             >
               <Button
                 onClick={() => setCurrentPage('form')}
-                className="text-xl px-12 py-8 bg-gradient-to-r from-emerald-600 to-gold-600 hover:from-emerald-700 hover:to-gold-700 rounded-2xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300"
+                className="text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-6 md:py-8 bg-gradient-to-r from-emerald-600 to-gold-600 hover:from-emerald-700 hover:to-gold-700 rounded-xl md:rounded-2xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300"
               >
-                <Sparkles className="w-6 h-6 mr-2" />
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 mr-2" />
                 Start Your Journey 🚀
               </Button>
-              <p className="text-sm text-gray-500 mt-4">Free • No signup required • Instant results</p>
+              <p className="text-xs sm:text-sm text-gray-500 mt-4 px-4">Free • No signup required • Instant results</p>
             </motion.div>
           </motion.div>
         )}
