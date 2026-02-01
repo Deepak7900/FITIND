@@ -47,7 +47,7 @@ import {
   Meal,
 } from '@/lib/fitness';
 
-export default function VedaFitApp() {
+export default function FitindApp() {
   const [profile, setProfile] = useState<UserProfile>({
     name: '',
     age: 25,
@@ -113,7 +113,7 @@ export default function VedaFitApp() {
 
   // Load profile
   useEffect(() => {
-    const saved = localStorage.getItem('vedafit-profile');
+    const saved = localStorage.getItem('fitind-profile');
     if (saved) {
       try {
         setProfile(JSON.parse(saved));
@@ -124,7 +124,7 @@ export default function VedaFitApp() {
   }, []);
 
   const saveProfile = () => {
-    localStorage.setItem('vedafit-profile', JSON.stringify(profile));
+    localStorage.setItem('fitind-profile', JSON.stringify(profile));
   };
 
   const triggerConfetti = () => {
@@ -267,7 +267,7 @@ export default function VedaFitApp() {
           >
             <Sparkles className="w-10 h-10 text-emerald-500" />
             <h1 className="text-6xl md:text-7xl font-serif font-bold bg-gradient-to-r from-emerald-400 via-white to-gold-400 bg-clip-text text-transparent">
-              VedaFit
+              Fitind
             </h1>
             <Sparkles className="w-10 h-10 text-gold-500" />
           </motion.div>
