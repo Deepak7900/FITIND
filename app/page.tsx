@@ -20,6 +20,7 @@ import {
   Sparkles,
   TrendingUp,
   Calendar,
+  Zap,
 } from 'lucide-react';
 import {
   UserProfile,
@@ -63,9 +64,18 @@ export default function FitindApp() {
   });
 
   const [goalWeight, setGoalWeight] = useState<number>(65); // Target weight
-  const [currentPage, setCurrentPage] = useState<'landing' | 'form' | 'results'>('landing'); // Page state
+  const [currentPage, setCurrentPage] = useState<'landing' | 'form' | 'quickPlan' | 'results'>('landing'); // Page state
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState<'regular' | 'religious'>('regular'); // For flexitarian weekly view
+
+  // Quick Plan State (minimal inputs)
+  const [quickPlan, setQuickPlan] = useState({
+    weight: 70,
+    age: 25,
+    bmi: 22,
+    dietType: 'veg' as 'veg' | 'nonveg',
+  });
+
   const [results, setResults] = useState<{
     bmr: number;
     tdee: number;
@@ -215,6 +225,41 @@ export default function FitindApp() {
     });
 
     saveProfile();
+    setCurrentPage('results');
+    triggerConfetti();
+  };
+
+  // Quick Plan Calculator
+  const calculateQuickPlan = () => {
+    // Determine activity multiplier based on standard assumptions
+    const activityMultiplier = 1.55; // Moderate
+
+    // Estimate BMR using quick formula
+    const bmr = quickPlan.age < 30 ? quickPlan.weight * 24 : quickPlan.weight * 22;
+    const tdee = Math.round(bmr * activityMultiplier);
+
+    // Quick plan is usually for maintenance or slight deficit
+    const targetCalories = tdee;
+
+    const macros = calculateMacros(targetCalories, 'maintain', 'standard');
+
+    // Get meal plan
+    const meals = quickPlan.dietType === 'veg' ? vegetarianMeals : nonVegetarianMeals;
+    const scaledMeals = scaleMeals(meals, targetCalories);
+
+    setResults({
+      bmr: Math.round(bmr),
+      tdee: Math.round(tdee),
+      targetCalories,
+      macros,
+      bmi: quickPlan.bmi,
+      healthStatus: getHealthStatus(quickPlan.bmi, 'maintain'),
+      mealPlan: scaledMeals,
+      waterIntake: calculateWaterIntake(quickPlan.weight, 'moderate'),
+      supplements: getSupplementRecommendations('maintain', 'beginner', quickPlan.dietType),
+      mealTiming: getMealTiming('maintain', 'beginner'),
+    });
+
     setCurrentPage('results');
     triggerConfetti();
   };
@@ -412,22 +457,111 @@ export default function FitindApp() {
               ))}
             </motion.div>
 
-            {/* CTA Button - Centered & Prominent */}
+            {/* Dual CTA Buttons - Quick vs Full Plan */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.5 }}
-              className="flex flex-col items-center justify-center w-full"
+              className="flex flex-col items-center justify-center w-full gap-3"
             >
               <Button
-                onClick={() => setCurrentPage('form')}
+                onClick={() => setCurrentPage('quickPlan')}
                 className="text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-6 md:py-8 bg-gradient-to-r from-emerald-600 to-gold-600 hover:from-emerald-700 hover:to-gold-700 rounded-xl md:rounded-2xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300 w-full max-w-sm mx-auto"
               >
-                <Sparkles className="w-5 h-5 md:w-6 md:h-6 mr-2" />
-                Start Your Journey 🚀
+                <Zap className="w-5 h-5 md:w-6 md:h-6 mr-2" />
+                Quick Diet Plan ⚡
               </Button>
-              <p className="text-xs sm:text-sm text-gray-500 mt-4 px-4 text-center">Free • No signup • Instant results</p>
+
+              <Button
+                onClick={() => setCurrentPage('form')}
+                variant="outline"
+                className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 md:py-6 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 rounded-xl md:rounded-2xl transition-all duration-300 w-full max-w-sm mx-auto"
+              >
+                <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                Full Plan (Advanced)
+              </Button>
+
+              <p className="text-xs sm:text-sm text-gray-500 mt-2 px-4 text-center">Quick: 4 fields • Full: Complete analysis</p>
             </motion.div>
+          </motion.div>
+        )}
+
+        {/* Quick Diet Plan Form */}
+        {currentPage === 'quickPlan' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-md mx-auto"
+          >
+            <Card className="glass backdrop-blur-xl bg-white/5 border-white/10 overflow-hidden">
+              <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-serif text-white">⚡ Quick Diet Plan</CardTitle>
+                <CardDescription>Bas 4 details bhariye aur instant plan paiye</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400">Weight (kg)</label>
+                    <Input
+                      type="number"
+                      value={quickPlan.weight}
+                      onChange={(e) => setQuickPlan({ ...quickPlan, weight: Number(e.target.value) })}
+                      className="bg-white/5 border-white/20 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400">Age</label>
+                    <Input
+                      type="number"
+                      value={quickPlan.age}
+                      onChange={(e) => setQuickPlan({ ...quickPlan, age: Number(e.target.value) })}
+                      className="bg-white/5 border-white/20 text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm text-gray-400">BMI (Nahi pata toh estimation daalein - e.g. 22)</label>
+                  <Input
+                    type="number"
+                    value={quickPlan.bmi}
+                    onChange={(e) => setQuickPlan({ ...quickPlan, bmi: Number(e.target.value) })}
+                    className="bg-white/5 border-white/20 text-white"
+                  />
+                  <p className="text-[10px] text-gray-500 italic">*BMI = Weight / (Height in m)²</p>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm text-gray-400">Khan-paan Ka Tarika</label>
+                  <Select
+                    value={quickPlan.dietType}
+                    onValueChange={(value: any) => setQuickPlan({ ...quickPlan, dietType: value })}
+                  >
+                    <SelectTrigger className="bg-white/5 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="veg">🥬 Shuddh Shakahari (Veg)</SelectItem>
+                      <SelectItem value="nonveg">🍗 Mansahari (Non-Veg)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Button
+                  onClick={calculateQuickPlan}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 py-6 text-lg font-bold shadow-lg shadow-emerald-500/30"
+                >
+                  Get Instant Plan 🚀
+                </Button>
+
+                <button
+                  onClick={() => setCurrentPage('landing')}
+                  className="w-full text-center text-gray-500 hover:text-white text-sm transition-colors"
+                >
+                  ← Wapas Jao
+                </button>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
 
