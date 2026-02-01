@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata: Metadata = {
-  title: 'VedaFit - Your Cinematic Fitness Journey',
-  description: 'Premium Indian diet and fitness plans with stunning visuals, macro tracking, and personalized meal plans',
+  title: 'Fitind - Your Personal Fitness AI Coach',
+  description: 'Get scientifically designed nutrition & training plans tailored for athletes and everyday champions',
 };
 
 export default function RootLayout({
