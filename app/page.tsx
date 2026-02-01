@@ -291,7 +291,7 @@ export default function VedaFitApp() {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-16"
+              className="mb-8 md:mb-12"
             >
               <motion.h1
                 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold mb-6 bg-gradient-to-r from-emerald-400 via-gold-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
@@ -320,7 +320,7 @@ export default function VedaFitApp() {
 
             {/* 3D Floating Icons */}
             <motion.div
-              className="flex gap-3 sm:gap-6 md:gap-8 mb-12 md:mb-16"
+              className="flex gap-3 sm:gap-6 md:gap-8 mb-8 md:mb-12"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.9 }}
@@ -359,7 +359,7 @@ export default function VedaFitApp() {
 
             {/* Features Grid */}
             <motion.div
-              className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16 max-w-4xl px-4"
+              className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-4xl px-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 }}
@@ -395,7 +395,7 @@ export default function VedaFitApp() {
 
             {/* Stats Section */}
             <motion.div
-              className="flex gap-6 sm:gap-8 md:gap-12 mb-12 md:mb-16 px-4"
+              className="flex gap-6 sm:gap-8 md:gap-12 mb-8 md:mb-12 px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3 }}
@@ -412,20 +412,21 @@ export default function VedaFitApp() {
               ))}
             </motion.div>
 
-            {/* CTA Button */}
+            {/* CTA Button - Centered & Prominent */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.5 }}
+              className="flex flex-col items-center justify-center w-full"
             >
               <Button
                 onClick={() => setCurrentPage('form')}
-                className="text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-6 md:py-8 bg-gradient-to-r from-emerald-600 to-gold-600 hover:from-emerald-700 hover:to-gold-700 rounded-xl md:rounded-2xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300"
+                className="text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-6 md:py-8 bg-gradient-to-r from-emerald-600 to-gold-600 hover:from-emerald-700 hover:to-gold-700 rounded-xl md:rounded-2xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300 w-full max-w-sm mx-auto"
               >
                 <Sparkles className="w-5 h-5 md:w-6 md:h-6 mr-2" />
                 Start Your Journey 🚀
               </Button>
-              <p className="text-xs sm:text-sm text-gray-500 mt-4 px-4">Free • No signup required • Instant results</p>
+              <p className="text-xs sm:text-sm text-gray-500 mt-4 px-4 text-center">Free • No signup • Instant results</p>
             </motion.div>
           </motion.div>
         )}
